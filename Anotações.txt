@@ -67,3 +67,10 @@ module.exports = app
 
 VOLTAR PRO SERVER
 
+
+
+ta certo
+
+duvida clarice correta:
+O processo então geral de construção é:
+ modules -> controllers -> routers -> app -> server? É isso?

@@ -1,9 +1,11 @@
+//importar o json de serie
 const serieJson = require("../models/series.json")
 
 
-app.get("/series", (request, response) => {
-    let idRequest = request.query.id
-    let idEcontrado = serieJson.find(serie => serie.id == idRequest)
+const getAll = (req, res) => {
+    res.status(200).send(serieJson)
+}
 
-    response.status(200).send(idEcontrado)
-})
+module.exports = {
+    getAll
+}
