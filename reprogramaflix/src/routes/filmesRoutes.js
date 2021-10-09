@@ -9,5 +9,6 @@ const router = express.Router() // função exclusiva para criar diversas rotas 
  router.get("/catalogo", controller.getAll) //que nem faz do app
 router.get("/:id", controller.getById)
 
+router.post("/criar", controller.createMovie)
 //exportando para ser usado no app.js
 module.exports = router

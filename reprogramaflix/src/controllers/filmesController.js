@@ -20,8 +20,31 @@ const getById = (request, response) => {
     response.status(200).send(idEncontrado)
 }
 
-//expostando todas as funções do controller para ser usada no filmesRouter.js
+const createMovie = (request, response) => {
+    let body = request.body
+
+    let novoFilme = {
+        id: (filmesJson.length)+1,
+        Title: body.Title,
+        Plot: body.Plot
+    }
+
+    filmesJson.push(novoFilme)
+
+    response.status(201).json(
+        [
+            {
+                "mensagem":"filme cadastrado com sucesso",
+                novoFilme
+            }
+        ]
+    )
+}
+
+
+//exportando todas as funções do controller para ser usada no filmesRouter.js
 module.exports = {
     getAll,
-    getById
+    getById,
+    createMovie
 }
