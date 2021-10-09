@@ -8,5 +8,9 @@ const router = express.Router() //função de rotas do express
 router.get("/catalogo", controller.getAll)
 router.get("/:id", controller.getById)
 
+router.post("/criar", controller.createMovie)
+
+router.patch("/update/:id", controller.updateTitle)
+
 //exportando para ser usado no app.js
 module.exports = router
