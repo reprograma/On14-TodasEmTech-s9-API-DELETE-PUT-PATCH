@@ -1,0 +1,41 @@
+ENTRAR NA PASTA QUE FARÁ O SERVIDOR
+$ cd reprogramaflix/
+
+CONFIGURANDO SERVIDOR
+$ npm init -y
+$ npm i express
+$ npm i nodemom
+$ npm i nodemon
+$ touch .gitignore
+$ npm i cors
+
+DEPOIS INSTALAÇÃO
+Alterar no Package.json 
+"start": "nodemon server.js"
+
+Alterar no gitignore
+node_modules/
+
+CODANDO NO SERVER.JSON
+EXEMPLO:
+const filmesJson = require("./models/filmes.json") //puxar filmes data
+const express = require("express") // chamando express
+const app = express() //executando o express
+
+// configurando porta
+app.listen(7070, ()=>{
+console.log("alo doçura? to na porta 7070")
+})
+
+
+DEPOIS CONFIGURAR SERVER, DAR START
+$npm start
+
+ESTRUTURA MVC
+$ mkdir src // criar pasta
+$ cd src // entrar na pasta
+$ touch app.js // criar arquivo
+$ mkdir routes controllers models // criando as 3 pastas
+
+organizar o vs code, arrastar models pra dentro do src
+
