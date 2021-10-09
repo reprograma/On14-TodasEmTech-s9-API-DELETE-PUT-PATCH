@@ -39,3 +39,31 @@ $ mkdir routes controllers models // criando as 3 pastas
 
 organizar o vs code, arrastar models pra dentro do src
 
+transformar os APP em funções dentro do controllers 
+transforar em funçoes a ser cahamas em qualquer lugar do arquivo
+module.exports = {
+    getAll,
+    getById
+}
+ela vai ser chamada na parte de rotas
+
+EM FILMES ROUTES - chamar no controlles, dentro de routes
+const controller = require("../controllers/filmesController")
+
+ROUTE - no app colocando a rota rais no aap.
+
+
+router.get("/catalogo", controller.getAll) //que nem faz do app
+router.get("/:id", controller.getById)
+
+exportar DEPOIS com module.exports = router
+
+(apertar crtl mais o link ele abre o arquivo)
+
+IR ARQUIVO APP E CHAMAR OS APPS
+exportar o app no ap.jj
+
+module.exports = app
+
+VOLTAR PRO SERVER
+
