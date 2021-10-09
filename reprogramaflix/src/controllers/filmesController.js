@@ -1,5 +1,6 @@
 //controller vai ter a logica
 
+const { request, response } = require("../app")
 const filmesJson = require("../models/filmes.json") // chamando o json de filmes
 
 //funcao getAll retorna todos os filmes
@@ -42,9 +43,27 @@ const createMovie = (request, response) => {
 }
 
 
+const updateTitle = (request, response) =>{
+    const idRequest = request.params.id
+    let novoTitulo = request.body.Title
+
+    filmeFiltrado = filmesJson.find(filme => filme.id == idRequest)
+    filmeFiltrado.Title = novoTitulo
+
+    response.status(200).json(
+        [
+            {
+                "mensagem":"filme atualizado com sucesso",
+                filmeFiltrado
+            }
+        ]
+    )
+}
+
 //exportando todas as funções do controller para ser usada no filmesRouter.js
 module.exports = {
     getAll,
     getById,
-    createMovie
+    createMovie,
+    updateTitle
 }

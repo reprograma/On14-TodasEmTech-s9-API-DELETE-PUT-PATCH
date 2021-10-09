@@ -6,9 +6,11 @@ const router = express.Router() // função exclusiva para criar diversas rotas 
 
 //metodo http + continuação rota + funcao
 //router.metodo http (rota, funcao)
- router.get("/catalogo", controller.getAll) //que nem faz do app
+router.get("/catalogo", controller.getAll) //que nem faz do app
 router.get("/:id", controller.getById)
 
 router.post("/criar", controller.createMovie)
+router.patch("/update/:id", controller.updateTitle)
+
 //exportando para ser usado no app.js
 module.exports = router

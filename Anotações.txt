@@ -74,3 +74,22 @@ ta certo
 duvida clarice correta:
 O processo então geral de construção é:
  modules -> controllers -> routers -> app -> server? É isso?
+
+
+PUT PATCH servem para fazer uma atualização algo que ja existe no BC
+PUT - subtitui todo objeto que seja modificar
+PATCH - modifica somente um item no objeto
+
+indepotencia, quando há atualizações mas que nao altera banco de dados
+por ex, quando clica em comprar varias vezes, qdo ta travando, ele nao permite que gere varias compras do clliente.
+isso serve como p PATCH
+(indepotente é o ex do like, só com put ele apaga, pra ser idepontente ele tem que manter os likes anteriores)
+
+put vai atualizar o filme todo, o patch vai atualizar só o titulo do filme
+
+no post manda body
+
+pathc tem que mandar id e body
+
+
+REFATORAR O SERVIDOR FEITO NAS AULA ANTERIOR, ATIVIDADE EXTRA
