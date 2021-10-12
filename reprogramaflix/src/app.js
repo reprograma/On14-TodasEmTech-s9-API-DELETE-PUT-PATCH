@@ -12,7 +12,7 @@ const seriesRoutes = require("./routes/seriesRoutes")
 const app = express() //executo o express
 
 app.use(cors()) //uso o cors
-app.use(express.json()) //uso o bodyparser
+app.use(express.json()) //uso o bodyparse
 
 //crio a rota raiz de filmes 
 app.use("/filmes", filmesRoutes) 
@@ -23,6 +23,6 @@ app.use("/series", seriesRoutes)
 
 
 //exportando para usar o server.js
-module.exports = app 
+module.exports = app
 
 
