@@ -51,10 +51,24 @@ const createMovie = (request, response) => {
   ])
 }
 
+const updateTitle = (request, response)=>{
+  const idRequest = request.params.id 
+  let novoTitulo = request.body.Title
+
+  filmeFiltrado = filmesJson.find(filme => filme.id == idRequest)
+
+  filmeFiltrado.Title = novoTitulo
+
+  response.status(200).json([{
+              "mensagem": "filme atualizado com sucesso",
+              filmeFiltrado
+          }])
+}
 module.exports = {
   getAll,
   getByTitle,
   getById,
   getByGenre,
-  createMovie
+  createMovie,
+  updateTitle
 }

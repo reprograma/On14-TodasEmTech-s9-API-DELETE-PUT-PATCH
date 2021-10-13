@@ -48,10 +48,25 @@ const createSerie = (request, response) => {
   response.status(201).json([{ "mensagem": "cadastrado com sucesso", newSerie}])
 }
 
+const updateTitle = (request, response)=>{
+  const idRequest = request.params.id 
+  let novoTitulo = request.body.title
+
+  serieFiltrada = seriesJson.find(serie => serie.id == idRequest)
+
+  serieFiltrada.title = novoTitulo
+
+  response.status(200).json([{
+              "mensagem": "serie atualizado com sucesso",
+              serieFiltrada
+          }])
+}
+
 module.exports = {
   getAll,
   getByTitle,
   getById,
   getByGenre,
-  createSerie
+  createSerie,
+  updateTitle
 }
