@@ -64,11 +64,27 @@ const updateTitle = (request, response)=>{
               filmeFiltrado
           }])
 }
+
+const deleteMovie = (request, response) => {
+  let idRequest = request.params.id;
+  let indexRequested = filmesJson.findIndex(
+    filmes => filmes.id == idRequest
+  )
+  console.log(indexRequested)
+
+  filmesJson.splice(indexRequested, 1);
+  response.status(200).json([{
+    "mensagem": "Filme deletado com sucesso",
+    filmesJson
+  }])
+}
+
 module.exports = {
   getAll,
   getByTitle,
   getById,
   getByGenre,
   createMovie,
-  updateTitle
+  updateTitle,
+  deleteMovie
 }

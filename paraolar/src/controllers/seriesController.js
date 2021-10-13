@@ -62,11 +62,25 @@ const updateTitle = (request, response)=>{
           }])
 }
 
+const deleteSerie = (request, response) => {
+  let idRequest = request.params.id;
+  let indexRequested = seriesJson.findIndex(
+    series => series.id == idRequest
+  )
+
+  seriesJson.splice(indexRequested, 1);
+  response.status(200).json([{
+    "mensagem": "Serie deletado com sucesso",
+    seriesJson
+  }])
+}
+
 module.exports = {
   getAll,
   getByTitle,
   getById,
   getByGenre,
   createSerie,
-  updateTitle
+  updateTitle,
+  deleteSerie
 }
