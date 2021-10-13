@@ -8,6 +8,7 @@ router.get("", controller.getAll);
 router.get("", controller.getByTitle);
 router.get("", controller.getByGenre);
 router.get("/:id", controller.getById);
+router.post("/criar", controller.createSerie);
 
 
 module.exports = router;
