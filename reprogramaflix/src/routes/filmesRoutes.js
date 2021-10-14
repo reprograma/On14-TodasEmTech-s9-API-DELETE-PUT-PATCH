@@ -1,3 +1,5 @@
+// AS ROTAS E MEDTODOS DE FILMES
+
 //chama o controller de filmes
 const controller = require("../controllers/filmesController")
 
@@ -11,6 +13,7 @@ router.get("/:id", controller.getById)
 
 router.post("/criar", controller.createMovie)
 router.patch("/update/:id", controller.updateTitle)
+router.put("/update/:id", controller.updateMovie)
 
 //exportando para ser usado no app.js
 module.exports = router

@@ -1,6 +1,5 @@
 //controller vai ter a logica
 
-const { request, response } = require("../app")
 const filmesJson = require("../models/filmes.json") // chamando o json de filmes
 
 //funcao getAll retorna todos os filmes
@@ -42,7 +41,7 @@ const createMovie = (request, response) => {
     )
 }
 
-
+// PATCH atualiza somente o titulo do filme
 const updateTitle = (request, response)=>{
     const idRequest = request.params.id //path params é o nome do request params
     let novoTitulo = request.body.Title
@@ -61,10 +60,30 @@ const updateTitle = (request, response)=>{
     )
 }
 
+//PUT
+const updateMovie = (request, response) =>{
+    const idRequest = request.params.id
+    let filmeRequest = request.body
+
+    let indexEncontrado = filmesJson.findIndex(filme => filme.id == idRequest)
+    filmesJson.splice(indexEncontrado, 1, filmeRequest) // pegar index encontrado, deletar um e substituir por filme request
+    //metodo splice
+
+    response.status(200).json(
+        [
+            {
+                "mensagem":"filme atualizado com sucesso",
+                filmesJson
+            }
+        ]
+    )
+}
+
 //exportando todas as funções do controller para ser usada no filmesRouter.js
 module.exports = {
     getAll,
     getById,
     createMovie,
-    updateTitle
+    updateTitle,
+    updateMovie
 }
