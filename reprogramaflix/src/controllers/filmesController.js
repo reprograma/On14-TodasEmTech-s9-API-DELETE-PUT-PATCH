@@ -43,17 +43,18 @@ const createMovie = (request, response) => {
 }
 
 
-const updateTitle = (request, response) =>{
-    const idRequest = request.params.id
+const updateTitle = (request, response)=>{
+    const idRequest = request.params.id //path params é o nome do request params
     let novoTitulo = request.body.Title
 
     filmeFiltrado = filmesJson.find(filme => filme.id == idRequest)
+
     filmeFiltrado.Title = novoTitulo
 
     response.status(200).json(
         [
             {
-                "mensagem":"filme atualizado com sucesso",
+                "mensagem": "filme atualizadocom sucesso",
                 filmeFiltrado
             }
         ]
