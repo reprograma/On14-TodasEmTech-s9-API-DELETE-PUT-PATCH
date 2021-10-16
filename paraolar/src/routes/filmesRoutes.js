@@ -4,9 +4,13 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", controllerMovies.searchAll);
-router.get("/buscar/:id", controllerMovies.searchId);
-router.get("/buscar", controllerMovies.searchTitle);
-router.get("/filtrar", controllerMovies.searchGenre);
-router.post("/criar", controllerMovies.createMovies);
+router.get("/search", controllerMovies.searchTitle);
+router.get("/filter", controllerMovies.searchGenre);
+router.post("/create", controllerMovies.createMovies);
+router.patch("/update/:id", controllerMovies.updateTitle);
+router.put("/update/:id", controllerMovies.updateMovie);
+router.patch("/update/filter/:id", controllerMovies.updateMovies);
+router.delete("/delete/:id", controllerMovies.deleteMovies);
+router.get("/search/:id", controllerMovies.searchId);
 
 module.exports = router;

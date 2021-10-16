@@ -1,5 +1,5 @@
 const app = require("./src/app");
-
-app.listen(5050, ()=>{
-console.log("Servidor está conectado na porta 5050.");
-})
+const PORT = 5050;
+app.listen(PORT, () => {
+  console.log(`Servidor está conectado na porta ${PORT}.`);
+});
