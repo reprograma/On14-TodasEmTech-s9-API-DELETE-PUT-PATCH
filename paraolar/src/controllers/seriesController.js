@@ -17,7 +17,7 @@ const getByTitle = (request, response) => {
 const getByGenre = (request, response) => {
   let genreRequest = request.query.genero.toLocaleLowerCase();
   let seriesEncontrado = seriesJson.filter(
-    series => series.genre.toLocaleLowerCase == genreRequest
+    series => (series.genre).toString().toLocaleLowerCase().includes(genreRequest)
   )
 
   response.status(200).send(seriesEncontrado);

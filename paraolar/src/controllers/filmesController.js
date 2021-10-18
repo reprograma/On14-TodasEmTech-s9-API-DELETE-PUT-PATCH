@@ -5,7 +5,7 @@ const getAll = (request, response) => {
 }
 
 const getByTitle = (request, response) => {
-  let titleRequest = request.query.titulo.toLocaleLowerCase();
+  let titleRequest = (request.query.titulo).toLocaleLowerCase();
   let titleEncontrado = filmesJson.filter(
     filmes => filmes.Title.toLocaleLowerCase().includes(titleRequest)
   );
