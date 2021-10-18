@@ -45,13 +45,14 @@ const createMovie = (request, response)=>{
 
 }
 
+//PATCH atualiza somente otitulo do filme
 const updateTitle = (request, response)=>{
     const idRequest = request.params.id 
     let novoTitulo = request.body.Title
 
     filmeFiltrado = filmesJson.find(filme => filme.id == idRequest)
 
-    filmeFiltrado.Title = novoTitulo
+    filmeFiltrado.Title = request.body.Title
 
     response.status(200).json(
         [
@@ -63,12 +64,30 @@ const updateTitle = (request, response)=>{
     )
 }
 
+//PUT
+const updateMovie = (request, response) =>{
+    const idRequest = request.params.id
+    let filmeRequest = request.body
 
+    let indexEncontrado = filmesJson.findIndex(filme => filme.id == idRequest)
+
+    filmesJson.splice(indexEncontrado, 1, filmeRequest)
+
+    response.status(200).json(
+        [
+            {
+                "mensagem": "filme atualizado com sucesso",
+                filmesJson
+            }
+        ]
+    )
+}
 
 //exportando todas os funções do controller para ser usada no filmesRoutes.js
 module.exports = {
     getAll,
     getById,
     createMovie,
-    updateTitle
+    updateTitle,
+    updateMovie
 }
