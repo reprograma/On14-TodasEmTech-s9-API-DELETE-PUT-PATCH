@@ -1,8 +1,23 @@
 const seriesJson = require("../models/series.json");
 
 
-const getAll = (request, response) => {
-  response.status(200).send(seriesJson);
+const getSeries = (request, response) => {
+  const serieRequest = request.query;
+  let keySelecionada = Object.keys(serieRequest);
+
+  if(keySelecionada == "") {
+    response.status(200).send(seriesJson)
+  } else {
+ 
+  let valueRequest = request.query[keySelecionada].toLocaleLowerCase();
+  
+
+  let seriesEncontrado = seriesJson.filter(
+    series => (series[keySelecionada]).toString().toLocaleLowerCase().includes(valueRequest)
+    )
+ 
+  response.status(200).send(seriesEncontrado) }
+
 }
 
 const getByTitle = (request, response) => {
@@ -52,7 +67,7 @@ const updateTitle = (request, response)=>{
   const idRequest = request.params.id 
   let novoTitulo = request.body.title
 
-  serieFiltrada = seriesJson.find(serie => serie.id == idRequest)
+  let serieFiltrada = seriesJson.find(serie => serie.id == idRequest)
 
   serieFiltrada.title = novoTitulo
 
@@ -60,6 +75,50 @@ const updateTitle = (request, response)=>{
               "mensagem": "serie atualizado com sucesso",
               serieFiltrada
           }])
+}
+
+const updateAnything = (request, response) => {
+  const idRequest = request.params.id;
+  let bodyRequest = request.body;
+
+  let serieFilter = seriesJson.find(serie => serie.id == idRequest);
+
+  bodyRequest.id = idRequest;
+
+  Object.keys(serieFilter).forEach((chave) => {
+    if(bodyRequest[chave] != undefined) {
+       serieFilter[chave]  = bodyRequest[chave]
+      }
+  })
+
+  response.status(200).json([{
+    "mensagem": "Serie atualizada", serieFilter
+  }])
+
+}
+
+const updateSerie = (request, response) => {
+  const bodyRequest = request.body
+  const idRequest = request.params.id 
+
+  const newSerie = {
+      id: idRequest,
+      title: bodyRequest.title,
+      totalSeasons: bodyRequest.totalSeasons,
+      genre: bodyRequest.genre,
+      writers: bodyRequest.writers,
+      poster: bodyRequest.poster,
+      actors: bodyRequest.actors,
+      ratings: bodyRequest.ratings
+    }
+
+    const indexSelecionado = seriesJson.findIndex(series => series.id == idRequest);
+    seriesJson.splice(indexSelecionado, 1, newSerie);
+    response.status(200).json([{
+      "mensagem": "Serie atualizada com sucesso",
+      newSerie
+    }])
+
 }
 
 const deleteSerie = (request, response) => {
@@ -76,11 +135,11 @@ const deleteSerie = (request, response) => {
 }
 
 module.exports = {
-  getAll,
-  getByTitle,
+  getSeries,
   getById,
-  getByGenre,
   createSerie,
   updateTitle,
-  deleteSerie
+  deleteSerie,
+  updateSerie,
+  updateAnything
 }

@@ -55,7 +55,7 @@ const updateTitle = (request, response)=>{
   const idRequest = request.params.id 
   let novoTitulo = request.body.Title
 
-  filmeFiltrado = filmesJson.find(filme => filme.id == idRequest)
+  let filmeFiltrado = filmesJson.find(filme => filme.id == idRequest)
 
   filmeFiltrado.Title = novoTitulo
 
@@ -63,6 +63,54 @@ const updateTitle = (request, response)=>{
               "mensagem": "filme atualizado com sucesso",
               filmeFiltrado
           }])
+}
+
+const updateAnything = (request, response) => {
+  const idRequest = request.params.id;
+  let bodyRequest = request.body;
+
+  let movieFilter = filmesJson.find(filme => filme.id == idRequest);
+
+  bodyRequest.id = idRequest;
+
+  Object.keys(movieFilter).forEach((chave) => {
+    if(bodyRequest[chave] != undefined) {
+      movieFilter[chave]  = bodyRequest[chave]
+      }
+  })
+  
+  response.status(200).json([{
+    "mensagem": "Filme atualizado com sucesso", movieFilter
+  }])
+}
+
+const updateMovie = (request, response) => {
+  let bodyRequest = request.body;
+  const idRequest = request.params.id;
+
+  let newMovie = {
+    id: idRequest,
+    Title: bodyRequest.Title,
+    Year: bodyRequest.Year,
+    Rated: bodyRequest.Rated,
+    Released: bodyRequest.Released,
+    Runtime: bodyRequest.Runtime,
+    Genre: bodyRequest.Genre,
+    Director: bodyRequest.Director,
+    Writer: bodyRequest.Writer,
+    Actors: bodyRequest.Actors,
+    Plot: bodyRequest.Plot,
+    Language: bodyRequest.Language,
+    Country: bodyRequest.Country,
+    Awards: bodyRequest.Awards
+  }
+
+  const indexRequested = filmesJson.findIndex(filmes => filmes.id == idRequest);
+  filmesJson.splice(indexRequested, 1, newMovie)
+
+  response.status(200).json([
+    {"mensagem": "Filme atualizado com sucesso", newMovie}
+  ])
 }
 
 const deleteMovie = (request, response) => {
@@ -86,5 +134,6 @@ module.exports = {
   getByGenre,
   createMovie,
   updateTitle,
-  deleteMovie
+  deleteMovie,
+  updateMovie
 }
