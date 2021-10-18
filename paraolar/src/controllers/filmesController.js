@@ -54,6 +54,7 @@ const updateTitle = (request, response) => {
   response.status(200).json([
     {
       message: "Filme atualizado com sucesso!",
+      moviefound
     },
   ]);
 };
@@ -102,7 +103,7 @@ const deleteMovies = (request, response) => {
   response.status(200).json([
     {
       message: "Filme deletado com sucesso.",
-      deleted: "idRequest",
+      deleted: idRequest,
       moviesJson,
     },
   ]);

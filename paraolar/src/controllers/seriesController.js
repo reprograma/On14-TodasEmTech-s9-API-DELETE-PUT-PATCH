@@ -8,6 +8,12 @@ const searchAll = (request, response) => {
   ]);
 };
 
+const searchId = (request, response) => {
+  let idRequest = request.params.id;
+  let idFound = seriesJson.find((series) => series.id == idRequest);
+  response.status(200).send(idFound);
+};
+
 const searchTitle = (request, response) => {
   let titleReq = request.query.title.toLocaleLowerCase();
   let titleFound = seriesJson.filter((series) =>
@@ -69,28 +75,6 @@ const updateTitle = (request, response) => {
   response.status(200).json([
     {
       message: "Série atualizada com sucesso!",
-    },
-  ]);
-};
-
-const updateAll = (request, response) => {
-  const idRequest = request.params.id;
-  const seriesRequest = request.body;
-  const seriesFound = seriesJson.find((series) => series.id == idRequest);
-
-  seriesRequest.id = idRequest;
-
-  Object.keys(seriesFound).forEach((keys) => {
-    if (seriesRequest[keys] == undefined) {
-      seriesFound[keys] = seriesFound[keys];
-    } else {
-      seriesFound[keys] = seriesRequest;
-    }
-  });
-
-  response.status(200).json([
-    {
-      message: "Séries atualizadas com sucesso!",
       seriesFound,
     },
   ]);
@@ -111,13 +95,31 @@ const deleteSeries = (request, response) => {
   response.status(201).send(seriesJson);
 };
 
-const searchId = (request, response) => {
-  let idRequest = request.params.id;
-  let idFound = seriesJson.find((series) => series.id == idRequest);
-  response.status(200).send(idFound);
+const updateAll = (request, response) => {
+  const idRequest = request.params.id;
+  let seriesRequest = request.body;
+  const seriesFound = seriesJson.find((series) => series.id == idRequest);
+  seriesRequest.id = idRequest;
+
+  Object.keys(seriesFound).forEach((keys) => {
+    if (seriesRequest[keys] == undefined) {
+      seriesFound[keys] = seriesFound[keys];
+    } else {
+      seriesFound[keys] = seriesRequest;
+    }
+  });
+
+  response.status(200).json([
+    {
+      message: "Séries atualizadas com sucesso!",
+      seriesFound,
+    },
+  ]);
 };
+
 module.exports = {
   searchAll,
+  searchId,
   searchTitle,
   searchGenre,
   createSeries,
@@ -125,5 +127,4 @@ module.exports = {
   updateTitle,
   deleteSeries,
   updateAll,
-  searchId,
 };
