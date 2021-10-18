@@ -20,15 +20,6 @@ const getSeries = (request, response) => {
 
 }
 
-const getByTitle = (request, response) => {
- let titleRequest = request.query.titulo.toLocaleLowerCase()
- let seriesEncontrado = seriesJson.filter(
-   series => series.title.toLocaleLowerCase().includes(titleRequest)
-   )
-
- response.status(200).send(seriesEncontrado)
-}
-
 const getByGenre = (request, response) => {
   let genreRequest = request.query.genero.toLocaleLowerCase();
   let seriesEncontrado = seriesJson.filter(
