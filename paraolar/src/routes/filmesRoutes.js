@@ -9,5 +9,7 @@ router.get("/filtro", controller.getByGenre)
 
 router.post("/criar", controller.createMovie)
 
+router.put("/update/:id", controller.updateMovie)
+
 
 module.exports = router

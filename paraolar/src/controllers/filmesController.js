@@ -66,7 +66,31 @@ const createMovie = (request, response) => {
     )
 }
 
+const updateMovie = (request, response) => {
+    const idRequest = request.params.id
+    let movieRequest = request.body
 
+    let indexFind = filmesJson.findIndex(filme => filme.id == idRequest)
+    filmesJson.splice(indexFind, 1, movieRequest) 
+
+    response.status(200).json(
+        [{
+            "mensagem": "Filme atualizado com sucesso",
+            filmesJson
+        }]
+    )
+
+} 
+
+
+/*
+
+PATCH/filmes/updateTitle?/{id}
+PATCH/filmes/update/{id}
+
+DELETE/filmes/deletar/{id}
+
+*/
 
 
 module.exports = {
@@ -74,5 +98,6 @@ module.exports = {
     getById,
     getByTitle,
     getByGenre,
-    createMovie
+    createMovie,
+    updateMovie
 }
