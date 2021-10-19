@@ -8,12 +8,6 @@ const searchAll = (request, response) => {
   ]);
 };
 
-const searchId = (request, response) => {
-  let idRequest = request.params.id;
-  let idFound = seriesJson.find((series) => series.id == idRequest);
-  response.status(200).send(idFound);
-};
-
 const searchTitle = (request, response) => {
   let titleReq = request.query.title.toLocaleLowerCase();
   let titleFound = seriesJson.filter((series) =>
@@ -99,13 +93,14 @@ const updateAll = (request, response) => {
   const idRequest = request.params.id;
   let seriesRequest = request.body;
   const seriesFound = seriesJson.find((series) => series.id == idRequest);
+
   seriesRequest.id = idRequest;
 
-  Object.keys(seriesFound).forEach((keys) => {
+  Object.keys(seriesFound).map((keys) => {
     if (seriesRequest[keys] == undefined) {
-      seriesFound[keys] = seriesFound[keys];
+      seriesRequest[keys] = seriesFound[keys];
     } else {
-      seriesFound[keys] = seriesRequest;
+      seriesFound[keys] = seriesRequest[keys];
     }
   });
 
@@ -117,9 +112,15 @@ const updateAll = (request, response) => {
   ]);
 };
 
+const searchId = (request, response) => {
+  let idRequest = request.params.id;
+  let idFound = seriesJson.find((series) => series.id == idRequest);
+  response.status(200).send(idFound);
+};
+
 module.exports = {
   searchAll,
-  searchId,
+
   searchTitle,
   searchGenre,
   createSeries,
@@ -127,4 +128,5 @@ module.exports = {
   updateTitle,
   deleteSeries,
   updateAll,
+  searchId,
 };
