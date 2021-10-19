@@ -1,0 +1,20 @@
+OK [GET] /assistir
+OK [GET] /filmes
+OK [GET] /filmes/buscar/{id}
+OK [GET] /filmes/buscar?{titulo}
+OK [GET] /filmes/filtrar?{genero}
+OK [POST]/filmes/criar
+OK [PATCH]/filmes/updateTitle?{id} // (Both Query Params)
+OK [PATCH]/filmes/update/{id} // (Path params/ updateAnything)
+OK [PUT]/filmes/update/{id} // (Path params) 
+OK [DELETE]/filmes/deletar/{id} 
+
+OK [GET] /series // em getSeries()
+OK [GET] /series{titulo} // em getSeries()
+OK [GET] /series{genero} // em getSeries()
+OK [GET] /series{id}ok
+OK [POST]/series/criar
+OK [PUT]/series/update/{id}
+OK [PATCH]/series/updateTitle?{id} // Both Query Params
+OK [PATCH]/series/update/{id} -->UpdateAnything // Path Params
+OK [DELETE]/series/deletar/{id}

@@ -1,0 +1,24 @@
+{
+  "name": "reprogramaflix",
+  "version": "1.0.0",
+  "description": "API de filmes e séries desenvolvidas para o bootcamp {reprograma}",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "['API'",
+    "'Rest'",
+    "'MVC'",
+    "'Node'",
+    "'Express']"
+  ],
+  "author": "Victoria Bastos",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13"
+  }
+}
