@@ -24,18 +24,14 @@ const getById = (req, res) => {
 }
 
 
-const getByTitle = (req, res) => {
-    let tituloRequest = req.query.titulo.toLocaleLowerCase()
-    console.log(req.query.titulo)
-    
-    let tituloEncontrado = filmesJson.filter(
-        filme => filme.Title.toLocaleLowerCase().includes(tituloRequest)
-    )
-    if (tituloEncontrado == undefined){
-        res.status(404).send ({message:`Filme ${tituloRequest} não cadastrado.`})
-    }
+const getByTitle = (request, response) => {
+    let titleRequest = request.query.titulo.toLocaleLowerCase();
+    let titleEncontrado = filmesJson.filter(
+        filmes => filmes.Title.toLocaleLowerCase().includes(titleRequest)
+    );
 
-    res.status(200).send(tituloEncontrado)
+
+    response.status(200).send(titleEncontrado)
 
 }
 
