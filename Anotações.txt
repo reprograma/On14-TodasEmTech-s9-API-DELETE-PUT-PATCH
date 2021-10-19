@@ -4,7 +4,6 @@ $ cd reprogramaflix/
 CONFIGURANDO SERVIDOR
 $ npm init -y
 $ npm i express
-$ npm i nodemom
 $ npm i nodemon
 $ touch .gitignore
 $ npm i cors
@@ -93,3 +92,18 @@ pathc tem que mandar id e body
 
 
 REFATORAR O SERVIDOR FEITO NAS AULA ANTERIOR, ATIVIDADE EXTRA
+
+
+//Como consultar se a porta esta aberta (o 7070 é subtituivel)
+//netstat -ano | findstr :7070
+//se estiver rodado vai retornar tcp, se não, nao retorna nada
+
+//COMO FECHAR A PORTA, QUANDO VC PERDE
+
+/*Windons -> cmd (prompt de comando) -> netstat -ano | findstr :7070 
+
+(pega o numero que vem após o listening)
+
+tskill 15596 (o numero é o que listenning)
+fecha a porta*/
+

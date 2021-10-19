@@ -1,0 +1,49 @@
+DENTRO DO GITBASH
+
+1 - Abrir uma pasta
+2 - criar um arquivo server.js (com touch)
+3 - criar pasta SRC 
+4 - criar as pastas dentro de SRC: controllers / models / routes (com mkdir)
+5 - criar arquivo app.js dentro de SRC 
+
+CONFIGURANDO SERVIDOR
+$ npm init -y
+$ npm i express
+$ npm i nodemon
+$ touch .gitignore
+$ npm i cors
+
+DEPOIS INSTALAÇÃO
+Alterar no Package.json: "start": "nodemon server.js"
+Alterar no gitignore: node_modules/
+
+
+NO ARQUIVO SERVER.JS
+Criar PORTA e chamar o arquivo APP.JS
+
+=========================================================================
+const app = require("./src/app")
+const PORT = 5050
+
+app.listen(PORT, () => {
+    console.log(`\Agora é minha vez na porta ${PORT}`)
+})
+=========================================================================
+
+NO ARQUIVO APP, CHAMAR:
+=========================================================================
+const express = require("express")
+const cors = require("cors")
+
+const app = express()
+
+app.use(cors())
+app.use(express.json())
+
+module.exports = app
+=======================================================================
+
+DENTRO DO GITBASH
+Iniciar o servidor: npm start
+
+
