@@ -5,6 +5,9 @@ const router = express.Router()
 router.get("/catalogo", controller.getAll)
 router.get("/buscar/:id", controller.getById)
 router.get("/titulo", controller.getByTitle)
+router.get("/filtro", controller.getByGenre)
+
+router.post("/criar", controller.createMovie)
 
 
 module.exports = router

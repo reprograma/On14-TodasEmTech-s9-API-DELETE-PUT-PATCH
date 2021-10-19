@@ -1,4 +1,4 @@
-const { query } = require("express")
+const { query, request, response } = require("express")
 const filmesJson = require("../models/filmes.json")
 
 
@@ -30,12 +30,41 @@ const getByTitle = (request, response) => {
         filmes => filmes.Title.toLocaleLowerCase().includes(titleRequest)
     );
 
-
     response.status(200).send(titleEncontrado)
 
 }
 
 
+const getByGenre = (request, response) => {
+    let genreRequest = request.query.genre.toLocaleLowerCase();
+    let genreFound = filmesJson.filter(
+        filmes => filmes.Genre.toLocaleLowerCase().includes(genreRequest)
+    );
+
+    response.status(200).send(genreFound)
+}
+
+
+const createMovie = (request, response) => {
+    const body = request.body
+
+    let newMovie = {
+        id: (filmesJson.length) + 1,
+        title: body.Title,
+        year: body.Year,
+        genre: body.Genre,
+        languange: body.Languange
+    }
+
+    filmesJson.push(newMovie)
+
+    response.status(200).json(
+        [{
+            "mensagem": "Filme cadastrado com sucesso",
+            newMovie
+        }]
+    )
+}
 
 
 
@@ -43,5 +72,7 @@ const getByTitle = (request, response) => {
 module.exports = {
     getAll,
     getById,
-    getByTitle
+    getByTitle,
+    getByGenre,
+    createMovie
 }
