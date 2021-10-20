@@ -1,8 +1,9 @@
-const app = require("./src/app")
+const app = require("./src/app") //chamando o arquivo app
 
-//PORT sempre maiusculo
-const PORT = 7070
+const PORT = 7070 //PORTA
 
-app.listen(PORT, () => {
-    console.log(`alo doçura? to na porta ${PORT}`);
-})  
+//iniciando o servidor
+app.listen(PORT , ()=>{
+    console.log(`alo doçura? to na porta ${PORT}`)
+})
+

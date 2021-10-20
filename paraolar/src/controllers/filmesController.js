@@ -1,4 +1,14 @@
 const filmesJson = require("../models/filmes.json")
+const seriesJson = require("../models/series.json")
+
+const getAssistir = (req, res) => {
+    console.log(seriesJson);
+    res.status(200).json(
+        [{
+            filmesJson//, seriesJson
+        }]
+    )
+}
 
 const getAll = (req, res) => {
     res.status(200).json(
@@ -7,7 +17,7 @@ const getAll = (req, res) => {
         }]
     )
 }
-//
+
 const getById = (req, res) => {
     let idRequest = req.params.id
     let idEncontrado = filmesJson.find(filme => filme.id == idRequest)
@@ -28,9 +38,114 @@ const getByGenre = (req, res) => {
     res.status(200).send(filmeEncontrado)
 }
 
-module.exports = {
+const postMovie = (req, res) => {
+    let tituloReq = req.body.Title
+    let yearReq = req.body.Year
+    let ratedReq = req.body.Rated
+    let releasedReq = req.body.Released
+    let runtimeReq = req.body.Runtime
+    let genreReq = req.body.Genre
+    let directorReq = req.body.Director
+    let writerReq = req.body.Writer
+    let actorsReq = req.body.Actors
+    let plotReq = req.body.Plot
+    let languageReq = req.body.Language
+    let countryReq = req.body.Country
+    let awardsReq = req.body.Awards
+
+    let novoFilme = {
+        id: (filmesJson.length) + 1,
+        title: tituloReq,
+        year: yearReq,
+        rated: ratedReq,
+        released: releasedReq,
+        runtime: runtimeReq,
+        genre: genreReq,
+        director: directorReq,
+        writer: writerReq,
+        actors: actorsReq,
+        plot: plotReq,
+        language: languageReq,
+        country: countryReq,
+        awards: awardsReq
+    }
+    filmesJson.push(novoFilme)
+
+    res.status(201).json(
+        [{
+            "mensagem": "filme cadastrado com sucesso",
+            novoFilme
+        }])
+}
+
+const putById = (req, res) => {
+    const idReq = req.params.id
+    let filmeReq = req.body
+    let indexEncontrado = filmesJson.findIndex(filme => filme.id == idReq)
+    filmesJson.splice(indexEncontrado, 1, filmeReq)
+    res.status(200).json(
+        [
+            {
+                "mensagem": "filme atualizado com sucesso",
+                filmeReq
+            }
+        ]
+    )
+}
+
+const patchTitle = (req, res) => {
+    let idReq = req.query.id
+    let filmeReq = req.body
+    let indexEncontrado = filmesJson.findIndex(filme => filme.id == idReq)
+    filmesJson.splice(indexEncontrado, 1, filmeReq)
+    res.status(200).json(
+        [
+            {
+                "mensagem": "Filme atualizado com sucesso",
+                "filme": filmeReq
+            }
+        ]
+        )
+    }
+    
+    const deletaFilme = (req, res) => {
+        const idReq = req.params.id
+        const indexFilme = filmesJson.findIndex(filme => filme.id == idReq)
+        
+        filmesJson.splice(indexFilme, 1)
+        
+        res.status(200).json([
+            {
+                "message": "Filme deletado com sucesso",
+                "filme": idReq
+            }
+        ])
+    }
+    
+    const pacth = (req, res) => {
+        const idReq = req.params.id
+        let filmeReq = req.body
+        let indexEncontrado = filmesJson.findIndex(filme => filme.id == idReq)
+        filmesJson.splice(indexEncontrado, 1, filmeReq)
+        res.status(200).json(
+            [
+                {
+                    "mensagem": "filme atualizado com sucesso",
+                    "filme": filmeReq
+                }
+            ]
+        )
+    }
+
+    module.exports = {
+        getAssistir,
     getAll,
     getById,
     getByTitle,
-    getByGenre
+    getByGenre,
+    postMovie,
+    putById,
+    patchTitle,
+    deletaFilme,
+    pacth
 }
