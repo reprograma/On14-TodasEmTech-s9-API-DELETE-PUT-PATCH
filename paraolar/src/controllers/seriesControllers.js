@@ -1,17 +1,54 @@
-/*
+const { response, request } = require("express")
+const seriesJson = require("../models/series.json")
 
-GET/series
-GET/series{id}
-GET/series{titulo}
-GET/series{genero}
+//GET/series
+const getAll = (require, response) => {
+    response.status(200).json (
+        [{
+            "series": seriesJson
+        }]
+    )
+}
 
-POST/series/criar
 
-PUT/series/update/{id}
+//GET/series{genero}
+const getGenre = (request, response) => {
+    const genreRequest = request.query.genero.toLocaleLowerCase()
+    
+    const seriesFilters = seriesJson.filter(serie =>
+        serie.genre.toString().toLocaleLowerCase().includes(genreRequest)
+    )
 
-PATCH/series/updateTitle?/{id}
-PATCH/series/update/{id}
+    response.status(200).send(seriesFilters)
+}
 
-DELETE/series/deletar/{id}
+//GET/series{titulo}
 
-*/
+
+
+
+//GET/series{id}
+
+
+
+//POST/series/criar
+const createSerie = (request, response) => {
+
+}
+
+
+
+//PUT/series/update/{id}
+
+//PATCH/series/updateTitle?/{id}
+//PATCH/series/update/{id}
+
+//DELETE/series/deletar/{id}
+
+
+module.exports ={
+    getAll,
+    getGenre,
+    
+
+}

@@ -1,4 +1,3 @@
-const { request, response } = require("express");
 const filmesJson = require("../models/filmes.json")
 
 
