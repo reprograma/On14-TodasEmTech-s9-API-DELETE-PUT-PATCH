@@ -1,14 +1,4 @@
 const filmesJson = require("../models/filmes.json")
-const seriesJson = require("../models/series.json")
-
-const getAssistir = (req, res) => {
-    console.log(seriesJson);
-    res.status(200).json(
-        [{
-            filmesJson//, seriesJson
-        }]
-    )
-}
 
 const getAll = (req, res) => {
     res.status(200).json(
@@ -105,40 +95,39 @@ const patchTitle = (req, res) => {
                 "filme": filmeReq
             }
         ]
-        )
-    }
-    
-    const deletaFilme = (req, res) => {
-        const idReq = req.params.id
-        const indexFilme = filmesJson.findIndex(filme => filme.id == idReq)
-        
-        filmesJson.splice(indexFilme, 1)
-        
-        res.status(200).json([
-            {
-                "message": "Filme deletado com sucesso",
-                "filme": idReq
-            }
-        ])
-    }
-    
-    const pacth = (req, res) => {
-        const idReq = req.params.id
-        let filmeReq = req.body
-        let indexEncontrado = filmesJson.findIndex(filme => filme.id == idReq)
-        filmesJson.splice(indexEncontrado, 1, filmeReq)
-        res.status(200).json(
-            [
-                {
-                    "mensagem": "filme atualizado com sucesso",
-                    "filme": filmeReq
-                }
-            ]
-        )
-    }
+    )
+}
 
-    module.exports = {
-        getAssistir,
+const deletaFilme = (req, res) => {
+    const idReq = req.params.id
+    const indexFilme = filmesJson.findIndex(filme => filme.id == idReq)
+
+    filmesJson.splice(indexFilme, 1)
+
+    res.status(200).json([
+        {
+            "message": "Filme deletado com sucesso",
+            "filme": idReq
+        }
+    ])
+}
+
+const pacth = (req, res) => {
+    const idReq = req.params.id
+    let filmeReq = req.body
+    let indexEncontrado = filmesJson.findIndex(filme => filme.id == idReq)
+    filmesJson.splice(indexEncontrado, 1, filmeReq)
+    res.status(200).json(
+        [
+            {
+                "mensagem": "filme atualizado com sucesso",
+                "filme": filmeReq
+            }
+        ]
+    )
+}
+
+module.exports = {
     getAll,
     getById,
     getByTitle,
