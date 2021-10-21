@@ -1,4 +1,3 @@
-const { response, request } = require("express")
 const seriesJson = require("../models/series.json")
 
 //GET/series
