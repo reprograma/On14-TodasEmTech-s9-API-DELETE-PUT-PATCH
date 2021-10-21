@@ -27,11 +27,11 @@ const createMovie = (request, response) => {
 const body = request.body
     
     let newMovie = {
-    id: (filmesJson.length) + 1,
-    title: body.Title,
-    year: body.Year,
-    genre: body.Genre,
-    languange: body.Languange
+        id: (filmesJson.length) + 1,
+        title: body.Title,
+        year: body.Year,
+        genre: body.Genre,
+        languange: body.Languange
     }
     
 filmesJson.push(newMovie)
@@ -66,7 +66,7 @@ const deleteMovie = (request, response) => {
 
     response.status(200).json(
         [{
-            "message":"Filme deletado com sucesso",
+            "message":"Filme deletado com sucesso!",
             "deletado": idRequest,
             filmesJson
         }]
@@ -123,7 +123,7 @@ const updateMoviesId = (request, response) => {
 
     response.status(200).json(
         [{
-            "mensagem": "Id filme atualizado com sucesso!",
+            "mensagem": "Filme atualizado com sucesso!",
          movieFound
         }]
     )
@@ -140,7 +140,7 @@ const updateMovie = (request, response) => {
 
     response.status(200).json(
         [{
-            "mensagem": "Filme atualizado com sucesso",
+            "mensagem": "Filme atualizado com sucesso!",
             filmesJson
         }]
     )

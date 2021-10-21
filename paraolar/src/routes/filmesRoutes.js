@@ -4,21 +4,21 @@ const router = express.Router()
 
 //falta GET/assistir
 
-router.get("/catalogo", controller.getAll) // OK FUNCIONANDO - NOME CATALOGO NA BARRA DE ENDEREÇO
-router.get("/filtro", controller.getByGenre) // OK FUNCIONANDO - CHAVE Genre + VALUE qualquer coisa
+router.get("/", controller.getAll) 
+router.get("/filtro", controller.getByGenre) 
 
-router.post("/criar", controller.createMovie) //OK FUNCIONANDO - INFORMACOES NO BODY
+router.post("/criar", controller.createMovie) 
 
-router.get("/titulo", controller.getByTitle) // OK FUNCIONANDO - CHAVE titulo + VALUE qualquer coisa
+router.get("/titulo", controller.getByTitle) 
 
-router.delete("/deletar/:id", controller.deleteMovie) // OK FUNCIONANDO - ID NA BARRA DE ENDEREÇO
+router.delete("/deletar/:id", controller.deleteMovie) 
 
-router.get("/buscar/:id", controller.getById) //OK FUNCIONANDO - ID NA BARRA DE ENDEREÇO
+router.get("/buscar/:id", controller.getById) 
 
-router.patch("/updateTitle/:id", controller.updateTitle) //OK FUNCIONANDO - ID NA BARRA DE ENDEREÇO / TITLE NO BODY
-router.patch("/update/:id", controller.updateMoviesId) // 
+router.patch("/updateTitle/:id", controller.updateTitle) 
+router.patch("/update/:id", controller.updateMoviesId) 
 
-router.put("/update/:id", controller.updateMovie) // OK FUNCIONANDO - ID NA BARRA DE ENDEREÇO / ID= NO BODY + OUTROS ITENS DO COD.
+router.put("/update/:id", controller.updateMovie) 
 
 
 module.exports = router
