@@ -22,12 +22,6 @@ const getAllSeries = (req, res) => {
         })
     }
 
-    // if(id ==! undefined && title !== undefined){
-    //     res.status(400).send({message : "Busca invalida"})
-    // }
-
-    // console.log(filtrados);
-
     if (filtrados == undefined) {
         res.status(404).send({ message: "Não foi possivel encontrar a serie" })
     }
