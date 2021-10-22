@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const filmesRoutes = require("./routes/filmesRoutes");
 const seriesRoutes = require("./routes/seriesRoutes");
+const catalogoRoutes = require("./routes/catalogoRoutes");
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 
 app.use("/filmes", filmesRoutes);
 app.use("/series", seriesRoutes);
+app.use("/assistir", catalogoRoutes);
 
 
 module.exports = app;
