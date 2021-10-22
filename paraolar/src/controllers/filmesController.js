@@ -66,7 +66,7 @@ const postMovie = (req, res) => {
         }])
 }
 
-const putById = (req, res) => {
+const putByIdFilme = (req, res) => {
     const idReq = req.params.id
     let filmeReq = req.body
     let indexEncontrado = filmesJson.findIndex(filme => filme.id == idReq)
@@ -81,7 +81,7 @@ const putById = (req, res) => {
     )
 }
 
-const patchTitle = (req, res) => {
+const patchTitleFilme = (req, res) => {
     let idReq = req.query.id
     let filmeReq = req.body
     let indexEncontrado = filmesJson.findIndex(filme => filme.id == idReq)
@@ -110,7 +110,9 @@ const deletaFilme = (req, res) => {
     ])
 }
 
-const pacth = (req, res) => {
+//fiquei em dúvida de como iria construir patchUpSerie para diferenciar do putByIdSerie, pq teoriacamente em patch poderia mudar só uma ou algumas propriedades, mas o quem que escolhe qual mudar, eu ou o usuario? ou posso escolher arbitrariamente?? Outra questão, se é pra mudar tudo o put faz isso, se for pra mudar só uma propriedade o put where também faz. Como escolher entre os dois, patch ou put? :/  E como ficaria a lógica aqui no controller, pensando sobre acredito (e espero kk) que qd estudarmos sql vai ficar mais facil visualizar isso
+
+const patchUpFilme = (req, res) => {
     const idReq = req.params.id
     let filmeReq = req.body
     let indexEncontrado = filmesJson.findIndex(filme => filme.id == idReq)
@@ -131,8 +133,8 @@ module.exports = {
     getByTitle,
     getByGenre,
     postMovie,
-    putById,
-    patchTitle,
+    putByIdFilme,
+    patchTitleFilme,
     deletaFilme,
-    pacth
+    patchUpFilme
 }
