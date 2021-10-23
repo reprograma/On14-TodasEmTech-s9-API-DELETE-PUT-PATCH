@@ -74,7 +74,7 @@ const createMovies = (request, response) => {
       Genre: body.Genre,
       Year: body.Year,
     };
-    console.log(Movie.Year);
+   
     if (
       Movie.Title == "" ||
       Movie.Plot == "" ||
