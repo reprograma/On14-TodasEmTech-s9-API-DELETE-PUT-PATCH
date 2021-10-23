@@ -41,13 +41,14 @@ const createMovie = (request, response) => {
     );
 }
 
+//PATCH
 const updateTitle = (request, response) => {
     let idRequest = request.params.id; //pega o id
     let novoTitulo = request.body.Title; //armazena o novo title enviado na request
 
     filmeFiltrado = filmesJson.find(filme => filme.id == idRequest); //filme encontrado
 
-    filmeFiltrado.Title = novoTitulo //substituindo o titulo antigo fdo filme pelo novo enviado na request
+    filmeFiltrado.Title = novoTitulo
 
     response.status(200).json(
         [
@@ -77,6 +78,8 @@ const updateMovie = (request, response) => {
         ]
     )
 }
+
+
 
 //exportando todas as funções do controller para ser usada no filmesRoutes.js
 
