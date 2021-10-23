@@ -6,3 +6,4 @@ const PORT = 7070 //PORTA
 app.listen(PORT , ()=>{
     console.log(`alo doçura? to na porta ${PORT}`)
 })
+
