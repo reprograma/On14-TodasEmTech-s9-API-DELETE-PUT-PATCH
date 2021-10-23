@@ -75,7 +75,7 @@ const postNewTvShow = (request, response) => {
         [
             {
                 
-                "Message": `O Filme ${newTvShow.title} foi cadastrado com sucesso.`, newTvShow
+                "Message": `A série ${newTvShow.title} foi cadastrada com sucesso.`, newTvShow
             
             }
         ]
@@ -106,7 +106,7 @@ const putUpdateById = (request, response) => {
         [
            {
                
-            "Message": `O filme ${tvShowFound.title} foi atualizado com sucesso.`, tvShowJson
+            "Message": `A série ${tvShowFound.title} foi atualizada com sucesso.`, tvShowJson
 
            } 
         ]
@@ -129,7 +129,7 @@ const patchUpdateTitle = (request, response) => {
     response.status(200).json(
         [
             {
-                "Message": "Filme atualizado com sucesso.", tvShowFound
+                "Message": "Série atualizada com sucesso.", tvShowFound
             }
         ]
     );
@@ -160,7 +160,7 @@ const patchUpdateAnything = (request, response) => {
     response.status(200).json(
         [
             {
-                "Message": `A série ${tvShowFound.title} foi atualizado com sucesso`, tvShowJson
+                "Message": `A série ${tvShowFound.title} foi atualizada com sucesso`, tvShowJson
             }
         ]
     );
@@ -180,7 +180,7 @@ const deleteTvShow = (request, response) => {
         [
             {
 
-                "Message": `O filme de ID ${indexTvShow + 1} foi deletado com sucesso.`, tvShowJson
+                "Message": `O série de ID ${indexTvShow + 1} foi deletada com sucesso.`, tvShowJson
 
             }
         ]
