@@ -1,0 +1,25 @@
+{
+  "name": "On14-TodasEmTech-s9-API-DELETE-PUT-PATCH",
+  "version": "1.0.0",
+  "description": "Turma Online 14 - Back-end | Introdução ao HTTP e Nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Edilainesds/On14-TodasEmTech-s9-API-DELETE-PUT-PATCH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Edilainesds/On14-TodasEmTech-s9-API-DELETE-PUT-PATCH/issues"
+  },
+  "homepage": "https://github.com/Edilainesds/On14-TodasEmTech-s9-API-DELETE-PUT-PATCH#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.14"
+  }
+}
