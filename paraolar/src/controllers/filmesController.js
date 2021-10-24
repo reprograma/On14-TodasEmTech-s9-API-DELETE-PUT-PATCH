@@ -21,10 +21,12 @@ const getById = (request, response) => {
     const idRequest = request.params.id;
     
     let idCaught = moviesJson.find(
-        movie => movie.id == idRequest
-        );
         
-        response.status(200).send(idCaught);
+        movie => movie.id == idRequest
+
+    );
+        
+    response.status(200).send(idCaught);
         
 } //request.params: a pesquisa vai direto na rota
 
@@ -34,7 +36,9 @@ const getByTitle = (request, response) => {
     let titleRequest = request.query.Title;
     
     let titleCaught = moviesJson.filter(
+        
         movie => movie.Title.includes(titleRequest)
+
     );
     
     response.status(200).send(titleCaught);
@@ -47,8 +51,10 @@ const getByGenre = (request, response) => {
     let genreRequest = request.query.Genre.toLowerCase();
     
     let genreCaught = moviesJson.filter(
+        
         movie => movie.Genre.toLowerCase().includes(genreRequest)
-        ); //tenho que chamar o array para poder percorre-lo ex.: moviesJson.filter()
+
+    ); //tenho que chamar o array para poder percorre-lo ex.: moviesJson.filter()
         
     response.status(200).send(genreCaught);
     
@@ -106,20 +112,17 @@ const putUpdateById = (request, response) => {
     
     Object.keys(movieFound).forEach (
         
-        (key) => {
-        
-            bodyRequest[key] == null ? movieFound[key] = movieFound[key] : movieFound[key] = bodyRequest[key]
+        (key) => movieFound[key] = bodyRequest[key]
 
-        }
     );
     
     response.status(200).json(
         [
-           {
+            {
                
-            "Message": `O filme ${movieFound.Title} foi atualizado com sucesso.`, moviesJson
-
-           } 
+                "Message": `O filme ${movieFound.Title} foi atualizado com sucesso.`, moviesJson
+            
+            } 
         ]
     );
 
