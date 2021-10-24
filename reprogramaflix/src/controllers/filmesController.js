@@ -59,16 +59,12 @@ const updateTitle = (request, response) => {
     )
 }
 
-//PUT
-const updateMovie = (request, response) => {
-    const idRequest = request.params.id //path.params é melhor para id
-    let filmeRequest = request.body
+
 
     const indexEncontrado = filmesJson.findIndex(
         filme => filme.id == idRequest
     )
 
-    filmesJson.splice(indexEncontrado, 1, filmeRequest)
 
     response.status(200).json(
         [
@@ -79,7 +75,24 @@ const updateMovie = (request, response) => {
     )
 }
 
+//PUT
+const updateMovie = (request, response) =>{
+    const idRequest = request.params.id
+    let filmeRequest = request.body
 
+    let indexEncontrado = filmesJson.findIndex(filme => filme.id == idRequest)
+
+    filmesJson.splice(indexEncontrado, 1, filmeRequest)
+
+    response.status(200).json(
+        [
+            {
+                "mensagem": "filme atualizado com sucesso",
+                filmesJson
+            }
+        ]
+    )
+}
 
 //exportando todas as funções do controller para ser usada no filmesRoutes.js
 
@@ -89,4 +102,4 @@ module.exports = {
     createMovie,
     updateTitle,
     updateMovie
-} //me possibilita usar essas funções fora do arquivo, em qualquer lugar do meu código.
+
