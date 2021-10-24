@@ -10,9 +10,10 @@ const router = express.Router()
 
 //router. metodo http (rota, funcao)
 router.get("/catalogo", controller.getAll)
-router.get("/:id", controller.getById)
 
 router.post("/criar", controller.createMovie)
+
+router.get("/:id", controller.getById)
 
 router.patch("/update/:id", controller.updateTitle)
 

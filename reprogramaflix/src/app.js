@@ -19,10 +19,10 @@ app.use("/filmes", filmesRoutes)
 
 //crio rota raiz de series
 app.use("/series", seriesRoutes)
-
+ //filmesJson[0].genre[0]
 
 
 //exportando para usar o server.js
-module.exports = app 
+module.exports = app
 
 
