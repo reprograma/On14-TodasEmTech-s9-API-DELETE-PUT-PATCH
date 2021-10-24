@@ -1,7 +1,7 @@
 const seriesJson = require("../models/series.json")
 
 //GET/series
-const getAll = (require, response) => {
+const getAll = (request, response) => {
     response.status(200).json (
         [{
             "series": seriesJson
