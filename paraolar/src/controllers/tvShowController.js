@@ -95,18 +95,15 @@ const putUpdateById = (request, response) => {
     bodyRequest.id = idRequest; 
 
     Object.keys(tvShowFound).forEach (
-        (chave) => {
         
-            bodyRequest[chave] == null ? tvShowFound[chave] = tvShowFound[chave] : tvShowFound[chave] = bodyRequest[chave]
-
-        }
+        (key) => tvShowFound[key] = bodyRequest[key]
     );
 
     response.status(200).json(
         [
            {
                
-            "Message": `A série ${tvShowFound.title} foi atualizada com sucesso.`, tvShowJson
+                "Message": `A série '${tvShowFound.title}' foi atualizada com sucesso.`, tvShowJson
 
            } 
         ]
@@ -147,14 +144,14 @@ const patchUpdateAnything = (request, response) => {
 
     Object.keys(tvShowFound).forEach(
         
-        (key) => bodyRequest [key] == undefined ? (
+        (key) => bodyRequest[key] == undefined ? (
             
             tvShowFound[key] = tvShowFound[key]
 
-         ) : (
+        ) : (
            
             tvShowFound[key] = bodyRequest[key]
-         )
+        )
     );
 
     response.status(200).json(
