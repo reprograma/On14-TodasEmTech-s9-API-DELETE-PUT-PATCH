@@ -1,5 +1,5 @@
 {
-  "name": "todo-API",
+  "name": "paraolar",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,14 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
