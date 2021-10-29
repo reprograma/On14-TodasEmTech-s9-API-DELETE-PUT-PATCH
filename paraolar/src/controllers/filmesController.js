@@ -1,85 +1,64 @@
-const filmesJson = require("../models/filmes.json")
-
-//[GET] /filmes
+//chama o json
+const modelsJson = require("../models/filmes.json")
+//[GET]/filmes
 const getAll = (request, response)=> { //getall retorna todos os filmes
 
     response.status(200).json([
         {
-            "filmes": filmesJson
+            "filmes": modelsJson
         }
     ])
 }
-
-//[GET] /filmes/buscar/{id}
-const getById = (request, response)=>{ //retorna um filme específico
-    let idRequest = request.params.id
-    let idEncontrado = filmesJson.find(filme => filme.id == idRequest)
+// [GET] /filmes/buscar/{id}
+const getById = (request, response)=> {
+    const idRequest = request.params.id
+    idEncontrado = modelsJson.find(filme => filme.id == idRequest)
 
     response.status(200).send(idEncontrado)
 }
-
 // [GET] /filmes/buscar?{titulo}
-const getByTitulo = (request, response)=>{
-    let tituloRequest = request.params.tituloRequest
-    let tituloEncontrado = filmesJson.filter(filme=> filme.Title == tituloRequest)
+const getByTitle = (request, response) => {
+    let titleRequest = request.query.Title //query pq são os parametros buscados depois de ?
+    let titleEncontrado = modelsJson.filter(
+        filme => filme.Title.includes(titleRequest)) //o includes serve pra buscar o elemento no array
 
-    response.status(200).send(tituloEncontrado)
+    response.status(200).send(titleEncontrado)
 }
-
 // [GET] /filmes/filtrar?{genero}
-const getByGenero = (request, response)=>{
-    let generoRequest = request.params.generoRequest
-    let generoEncontrado = filmesJson.filter(filme=> filme.Genre == generoRequest)
+const getByGenre = (request, response) =>{
+    let genreRequest = request.query.Genre.toLocaleLowerCase()
+    let genreEncontrado = modelsJson.filter(filme=> filme.Genre.toLocaleLowerCase().includes(genreRequest))
 
-    response.status(200).send(generoEncontrado)
+    response.status(200).send(genreEncontrado)
 }
 
 // [POST]/filmes/criar
-const createFilme = (request, response)=>{
-    const bodyRequest = request.bodyRequest
+const createfilme = (request, response) =>{
+    let body = request.body
 
-    let novoFilme = {
-        "id": (filmesJson.length)+1,
-        "Title": bodyRequest.Title,
-        "Year": bodyRequest.Year,
-        "Rated": bodyRequest.Rated,
-        "Released": bodyRequest.Released,
-        "Runtime": bodyRequest.Runtime,
-        "Genre": bodyRequest.Genre,
-        "Director": bodyRequest.Director,
-        "Writer": bodyRequest.Writer,
-        "Actors": bodyRequest.Actors,
-        "Plot": bodyRequest.Plot,
-        "Language": bodyRequest.Language,
-        "Country":bodyRequest.Country,
-        "Awards": bodyRequest.Awards
+    let novoFilme = { //cria novo objeto
+        id: (modelsJson.length)+1,
+        Title: body.Title,
+        Plot: body.Plot
     }
 
-    filmesJson.push(novoFilme)
-
-    response.status(201).json(
-        [
-            {
-                "mensagem": "Filme cadastrado com sucesso",
-                novoFilme
-            }
-        ]
-    )
+    response.status(200).send(novoFilme)
 }
-
-// [PUT]/filmes/update/{id}
+//[PUT]/filmes/update/{id}
 const updateFilme = (request, response) => {
-    const idRequest = request.params.id //path params é melhor para id
+    const idRequest = request.params.id
     let filmeRequest = request.body
 
-    const indexEncontrado = filmesJson.findIndex(filme => filme.id == idRequest)
-    filmesJson.splice(indexEncontrado, 1, filmeRequest)
+    const indexEncontrado = modelsJson.findIndex(filme => filme.id == idRequest)
+    //.findIndex retorna o índice no array do primeiro elemento que satisfizer a função de teste provida
+    modelsJson.splice(indexEncontrado, 1, filmeRequest)
+    //splice() permite inserir novos elementos e excluir elementos existentes em um array simultaneamente
 
     response.status(200).json(
         [
             {
-                "mensagem": "Filme atualizado com sucesso",
-                filmesJson
+                "mensagem": "filme atualizado com sucesso",
+                modelsJson
             }
         ]
     )
@@ -87,10 +66,10 @@ const updateFilme = (request, response) => {
 
 // [PATCH]/filmes/updateTitle?{id}
 const updateTitle = (request, response)=>{
-    const idRequest = request.params.id
+    const idRequest = request.query.id
     let novoTitulo = request.body.Title
 
-    filmeFiltrado = filmesJson.find(filme => filme.id == idRequest)
+    filmeFiltrado = modelsJson.find(filme => filme.id == idRequest)
 
     filmeFiltrado.Title = novoTitulo
 
@@ -106,53 +85,52 @@ const updateTitle = (request, response)=>{
 }
 
 // [PATCH]/filmes/update/{id}
-const updateBody = (request, response)=>{
+const updateFilmesId = (request, response) => {
     const idRequest = request.params.id
-    let novoUpDate = request.body
-
-    filmeUpDate = filmesJson.find(filme => filme.id == idRequest)
-
-    filmeUpDate = novoUpDate
-
+    const bodyRequest = request.body
+    const filmeEncontrado = modelsJson.find(filmes => filmes.id == idRequest)
+    
+    bodyRequest.id = idRequest
+    Object.keys (filmeEncontrado).forEach((chave) => { //forEach() permite executar uma função em cada elemento
+        
+        if (bodyRequest[chave] == undefined){
+         filmeEncontrado[chave] = filmeEncontrado [chave]
+        }else{
+         filmeEncontrado [chave] = bodyRequest [chave]
+        }
+    })
     response.status(200).json(
-        [
-            {
-                "mensagem": "filme atualizado com sucesso",
-                filmeUpDate
-            }
-
-        ]
+        [{
+            "mensagem": "Filme atualizado com sucesso!",
+         filmeEncontrado
+        }]
     )
 }
-
 
 // [DELETE]/filmes/deletar/{id}
-const deleteFilmes = (request, response)=>{
-    const idRequest = request.params.id
-    filmesDelete = filmesJson.findIndex(filmes => filmes.id == idRequest)
-//altera o conteúdo de uma lista, adicionando novos elementos enquanto remove elementos antigos
-    filmesJson.splice(filmesDelete, 1)
+const removeFilme = (request, response)=>{
+    const idRequest = request.params.id //igual a const id = req.params.id e entre chaves pq o id era um objeto
 
-    response.status(200).json(
-        [
-            {
-                "mensagem": "Filme deletado com sucesso",
-                filmesDelete
-            }
-        ]
-    )
+    const idEncontrado = modelsJson.findIndex(filme => filme.id == idRequest)
+
+    // if(idEncontrado == undefined){
+    //     response.status(404).send({message: "Filme não encontrado."})
+    // }
+
+    modelsJson.splice(idEncontrado, 1) //tira o item de dentro do array
+
+    response.status(200).send({mensage: 'Estabelecimento deletado.'}) //pode substituir status por res.sendStatus(204)
 }
 
-
-
+//exporta os verbos para usar em routes
 module.exports = {
     getAll,
     getById,
-    getByTitulo,
-    getByGenero,
-    createFilme,
+    getByTitle,
+    getByGenre,
+    createfilme,
     updateFilme,
     updateTitle,
-    updateBody,
-    deleteFilmes
+    updateFilmesId,
+    removeFilme
 }

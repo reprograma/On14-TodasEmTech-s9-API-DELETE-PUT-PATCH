@@ -1,17 +1,17 @@
+//chama o express
 const express = require("express");
+//chama o cors
 const cors = require("cors");
-const app = express();
-
-const filmesRouter = require("./routes/filmesRoutes");
-const seriesRouter = require("./routes/seriesRoutes");
-const assistirRouter = require("./routes/assistirRoutes")
-
+//executa o express
+const app = express()
+//cria const pras rotas
+const filmesRouter = require("./routes/filmesRoutes")
+//dar ordem ao app para usar
 app.use(cors());
 app.use(express.json());
+// app.use(routes)->pq qd ativo não dá certo??????????
+//cria as rotas raíz
+app.use("/filmes", filmesRouter)
 
-// app.use(routes);
-app.use("/filmes", filmesRouter);//executa a const q criamos para que tenha um caminho na url
-app.use("/series", seriesRouter);
-app.use("/assistir", assistirRouter);
-
-module.exports = app;
+//coloca para exportar
+module.exports = app

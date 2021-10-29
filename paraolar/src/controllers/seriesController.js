@@ -1,57 +1,92 @@
 const seriesJson = require("../models/series.json")
-
 // [GET] /series
-const getAll = (request, response)=> { //getall retorna todos os filmes
-
-    response.status(200).json([
-        {
-            "filmes": seriesJson
-        }
-    ])
-}
-
 // [GET] /series{id}
-const getById = (request, response)=>{ //retorna uma serie específica
-    let idRequest = request.params.id
-    let idEncontrado = seriesJson.find(serie => serie.id == idRequest)
-
-    response.status(200).send(idEncontrado)
-}
-
 // [GET] /series{titulo}
-const getByTitulo = (request, response)=>{
-    let tituloRequest = request.params.tituloRequest
-    let tituloEncontrado = seriesJson.filter(serie=> serie.Title == tituloRequest)
-
-    response.status(200).send(tituloEncontrado)
-}
-
 // [GET] /series{genero}
-const getByGenero = (request, response)=>{
-    let generoRequest = request.params.generoRequest
-    let generoEncontrado = seriesJson.filter(serie=> serie.Genre == generoRequest)
+// [POST]/series/criar
+// [PUT]/series/update/{id}
+// [PATCH]/series/updateTitle?{id}
+// [PATCH]/series/update/{id}
+// [DELETE]/series/deletar/{id}
 
-    response.status(200).send(generoEncontrado)
+//conferido✔
+const getAll = (request, response)=>{
+
+    const {id, title, genre} = request.query
+    let filtrados = seriesJson
+
+    if(id) {
+       filtrados = filtrados.filter(series => {
+           return series.id == id
+    })
+   }
+
+    if (title) {
+      filtrados = filtrados.filter(series => {
+          return series.title.toLowerCase().includes(title.toLowerCase())
+      })
+  }
+    if(genre) {
+    filtrados = filtrados.filter(series => {
+       return series.genre.includes(genre)
+   })
 }
+
+   response.status(200).send(filtrados);
+}
+
+// // [GET] /series
+// const getAll = (request, response)=> { //getall retorna todos os filmes
+
+//     response.status(200).json([
+//         {
+//             "filmes": seriesJson
+//         }
+//     ])
+// }
+
+// // [GET] /series{id}
+// const getById = (request, response)=>{ //retorna uma serie específica
+//     let idRequest = request.params.id
+//     let idEncontrado = seriesJson.find(serie => serie.id == idRequest)
+
+//     response.status(200).send(idEncontrado)
+// }
+
+// // [GET] /series{titulo}
+// const getByTitulo = (request, response)=>{
+//     let tituloRequest = request.params.tituloRequest
+//     let tituloEncontrado = seriesJson.filter(serie=> serie.Title == tituloRequest)
+
+//     response.status(200).send(tituloEncontrado)
+// }
+
+// // [GET] /series{genero}
+// const getByGenero = (request, response)=>{
+//     let generoRequest = request.params.generoRequest
+//     let generoEncontrado = seriesJson.filter(serie=> serie.Genre == generoRequest)
+
+//     response.status(200).send(generoEncontrado)
+// }
 
 // [POST]/series/criar
 const createSerie = (request, response)=>{
     const bodyRequest = request.bodyRequest
 
     let novaSerie = {
-            "id": (seriesJson.length)+1,
-            "title": bodyRequest.title,
-            "totalSeasons": bodyRequest.totalSeasons,
-            "genre": bodyRequest.genre,
-            "writers": bodyRequest.writers,
-            "poster": bodyRequest.poster,
-            "actors": bodyRequest.actors,
-            "ratings": bodyRequest.ratings
+        "id": (seriesJson.length)+1,
+        "title": bodyRequest.title,
+        "totalSeasons": bodyRequest.totalSeasons,
+        "genre": bodyRequest.genre,
+        "writers": bodyRequest.writers,
+        "poster": bodyRequest.poster,
+        "actors": bodyRequest.actors,
+        "ratings": bodyRequest.ratings
     }
 
     seriesJson.push(novaSerie)
 
-    response.status(201).json(
+    response.status(200).json(
         [
             {
                 "mensagem": "Série cadastrada com sucesso",
@@ -140,9 +175,9 @@ const deleteSeries = (request, response)=>{
 
 module.exports = {
     getAll,
-    getById,
-    getByTitulo,
-    getByGenero,
+    // getById,
+    // getByTitulo,
+    // getByGenero,
     createSerie,
     updateSeries,
     updateTitle,

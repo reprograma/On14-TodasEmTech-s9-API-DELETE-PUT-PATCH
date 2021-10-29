@@ -4,9 +4,9 @@ const router = express.Router()
 
 //chama as rotas secundarias
 router.get("", seriesController.getAll)
-router.get("", seriesController.getById)
-router.get("", seriesController.getByTitulo)
-router.get("", seriesController.getByGenero)
+// router.get("", seriesController.getById)
+// router.get("", seriesController.getByTitulo)
+// router.get("", seriesController.getByGenero)
 router.post("/criar", seriesController.createSerie)
 router.put("/update/", seriesController.updateSeries)
 router.patch("/updateTitle?", seriesController.updateTitle)

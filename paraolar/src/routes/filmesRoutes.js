@@ -1,22 +1,30 @@
+//chama o controller
 const filmesController = require("../controllers/filmesController")
+//chama o express
 const express = require("express")
+//chama a rota
 const router = express.Router()
-
-//router. metodo http (rota, função) exporta só o router
+//cria as rotas dos pedidos do client
+//[GET] /filmes✔
 router.get("", filmesController.getAll)
-router.get("/buscar/", filmesController.getById)
-router.get("/buscar?", filmesController.getByTitulo)
-router.get("/filtrar?",filmesController.getByGenero)
-router.post("/criar", filmesController.createFilme)
-router.put("/update/", filmesController.updateFilme)
+//[GET] /filmes/buscar/{id}✔
+router.get("/buscar/:id", filmesController.getById)
+// [GET] /filmes/buscar?{titulo}✔
+router.get("/buscar?", filmesController.getByTitle)
+// [GET] /filmes/filtrar?{genero}✔
+router.get("/filtrar?", filmesController.getByGenre)
+// [POST]/filmes/criar✔
+router.post("/criar", filmesController.createfilme)
+// [PUT]/filmes/update/{id}
+router.put("/update/:id", filmesController.updateFilme)
+// [PATCH]/filmes/updateTitle?{id}✔
 router.patch("/updateTitle?", filmesController.updateTitle)
-router.patch("/update/", filmesController.updateBody)
-router.delete("/deletar/", filmesController.deleteFilmes)
+// [PATCH]/filmes/update/{id}
+router.patch("/update/:id", filmesController.updateFilmesId)
+// [DELETE]/filmes/deletar/{id}✔
+router.delete("/deletar/:id", filmesController.removeFilme)
 
 
-// router.post("/criar", controller.createMovie)
 
-// router.patch("/update/:id", controller.updateTitle)
-// router.put("/update/:id", controller.updateMovie)
-
-module.exports = router //exporta a const pq ela quem vai chamar as rotas
+//exporta o arquivo de rotas
+module.exports = router
