@@ -1,15 +1,9 @@
 const seriesJson = require("../models/series.json")
-// [GET] /series
-// [GET] /series{id}
-// [GET] /series{titulo}
-// [GET] /series{genero}
-// [POST]/series/criar
-// [PUT]/series/update/{id}
-// [PATCH]/series/updateTitle?{id}
-// [PATCH]/series/update/{id}
-// [DELETE]/series/deletar/{id}
 
-//conferido✔
+//[GET] /series✔
+//[GET] /series{id}✔
+//[GET] /series{titulo}✔
+//[GET] /series{genero}✔
 const getAll = (request, response)=>{
 
     const {id, title, genre} = request.query
@@ -35,68 +29,25 @@ const getAll = (request, response)=>{
    response.status(200).send(filtrados);
 }
 
-// // [GET] /series
-// const getAll = (request, response)=> { //getall retorna todos os filmes
+// [POST]/series/criar✔
+const createSerie = (request, response) =>{
+    let body = request.body
 
-//     response.status(200).json([
-//         {
-//             "filmes": seriesJson
-//         }
-//     ])
-// }
-
-// // [GET] /series{id}
-// const getById = (request, response)=>{ //retorna uma serie específica
-//     let idRequest = request.params.id
-//     let idEncontrado = seriesJson.find(serie => serie.id == idRequest)
-
-//     response.status(200).send(idEncontrado)
-// }
-
-// // [GET] /series{titulo}
-// const getByTitulo = (request, response)=>{
-//     let tituloRequest = request.params.tituloRequest
-//     let tituloEncontrado = seriesJson.filter(serie=> serie.Title == tituloRequest)
-
-//     response.status(200).send(tituloEncontrado)
-// }
-
-// // [GET] /series{genero}
-// const getByGenero = (request, response)=>{
-//     let generoRequest = request.params.generoRequest
-//     let generoEncontrado = seriesJson.filter(serie=> serie.Genre == generoRequest)
-
-//     response.status(200).send(generoEncontrado)
-// }
-
-// [POST]/series/criar
-const createSerie = (request, response)=>{
-    const bodyRequest = request.bodyRequest
-
-    let novaSerie = {
-        "id": (seriesJson.length)+1,
-        "title": bodyRequest.title,
-        "totalSeasons": bodyRequest.totalSeasons,
-        "genre": bodyRequest.genre,
-        "writers": bodyRequest.writers,
-        "poster": bodyRequest.poster,
-        "actors": bodyRequest.actors,
-        "ratings": bodyRequest.ratings
+    let novaSerie = { //cria novo objeto
+        id: (seriesJson.length)+1,
+        title: body.title,
+        totalSeasons: body.totalSeasons
     }
 
-    seriesJson.push(novaSerie)
-
-    response.status(200).json(
-        [
-            {
-                "mensagem": "Série cadastrada com sucesso",
-                novaSerie
-            }
-        ]
-    )
+    response.status(200).json([
+        {
+            "mensagem": "Série cadastrada.",
+            novaSerie
+        }
+    ])
 }
 
-// [PUT]/series/update/{id}
+//[PUT]/series/update/{id} ---> ainda não sei como atualiza no postman
 const updateSeries = (request, response) => {
     const idRequest = request.params.id //path params é melhor para id
     let serieRequest = request.body
@@ -107,51 +58,52 @@ const updateSeries = (request, response) => {
     response.status(200).json(
         [
             {
-                "mensagem": "Série atualizada com sucesso",
-                seriesJson
+                "mensagem": "Série atualizada com sucesso"
             }
         ]
     )
 }
 
 
-// [PATCH]/series/updateTitle?{id}
+//[PATCH]/series/updateTitle?{id}✔
 const updateTitle = (request, response)=>{
-    const idRequest = request.params.id
-    let novoTitulo = request.body.Title
+    const idRequest = request.query.id
+    let novoTitulo = request.body.title
 
     serieFiltrada = seriesJson.find(serie => serie.id == idRequest)
 
-    serieFiltrada.Title = novoTitulo
+    serieFiltrada.title = novoTitulo
 
     response.status(200).json(
         [
             {
-                "mensagem": "Série atualizada com sucesso",
-                serieFiltrada
+                mensagem: "Série atualizada com sucesso", serieFiltrada
             }
 
         ]
     )
 }
 
-// [PATCH]/series/update/{id}
-const updateBody = (request, response)=>{
+// [PATCH]/series/update/{id}✔
+const updateBody = (request, response) => {
     const idRequest = request.params.id
-    let novoUpDate = request.body
-
-    serieUpDate = seriesJson.find(serie => serie.id == idRequest)
-
-    serieUpDate = novoUpDate
-
+    const bodyRequest = request.body
+    const serieEncontrada = seriesJson.find(series => series.id == idRequest)
+    
+    bodyRequest.id = idRequest
+    Object.keys (serieEncontrada).forEach((chave) => { //forEach() permite executar uma função em cada elemento
+        
+        if (bodyRequest[chave] == undefined){
+         serieEncontrada[chave] = serieEncontrada [chave]
+        }else{
+         serieEncontrada [chave] = bodyRequest [chave]
+        }
+    })
     response.status(200).json(
-        [
-            {
-                "mensagem": "Série atualizada com sucesso",
-                serieUpDate
-            }
-
-        ]
+        [{
+            "mensagem": "Série atualizada com sucesso!",
+         serieEncontrada
+        }]
     )
 }
 
@@ -166,7 +118,7 @@ const deleteSeries = (request, response)=>{
         [
             {
                 "mensagem": "Série deletada com sucesso",
-                seriesDelete
+                seriesJson
             }
         ]
     )
@@ -175,9 +127,6 @@ const deleteSeries = (request, response)=>{
 
 module.exports = {
     getAll,
-    // getById,
-    // getByTitulo,
-    // getByGenero,
     createSerie,
     updateSeries,
     updateTitle,
