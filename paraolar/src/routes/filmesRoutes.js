@@ -1,6 +1,6 @@
 // parte que realmete importa 
 //chamar o controller de filme 
-const controllers = require("../controllers/filmesController")
+const controllers = require('../controllers/filmesController')
 
 // chamar o express em uma  função 
  const express = require('express')//chama o express
@@ -11,6 +11,8 @@ const controllers = require("../controllers/filmesController")
 //router. metodo http (+ rota + função )
  router.get("/catalogo",controllers.getAll)
  router.get("/:id", controllers.getByid)
+ router.post("/criar", controllers.createMovie)
+ router.patch("/update/:id ", controllers.updateTitle)
 
  // assim exportar as rotas 
  //exportando para ser usado no app.js 
