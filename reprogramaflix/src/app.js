@@ -1,12 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const filmesRoutes = require("./routes/filmesRoutes");
+const express = require("express"); //chamando
+const cors = require("cors");   //chamando
+const filmesRoutes = require("./routes/filmesRoutes");  //chamando
 
-const app = express();
+const app = express(); //executo express
 
-app.use(cors());
-app.use(express.json());
+app.use(cors()); //uso
+app.use(express.json()); //uso
 
-app.use("/filmes", filmesRoutes);
+app.use("/filmes", filmesRoutes); //crio rota raiz de filmes
 
-module.exports = app;
+module.exports = app;   //exportando para usar o server.js
