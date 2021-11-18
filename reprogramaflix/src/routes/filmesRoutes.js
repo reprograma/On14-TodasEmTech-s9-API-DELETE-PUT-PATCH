@@ -1,10 +1,10 @@
-const controller = require("../controllers/filmesController")
+const controller = require("../controllers/filmesController");
 
-const express = require("express")
+const express = require("express");
+const router = express.Router();
 
-const router = express.Router()
+router.get("/catalogo", controller.getAll);
+router.get("/:id", controller.getById);
+router.post("/criar", controler.createMovie);
 
-router.get("/catalogo", controller.getAll)
-router.get("/:id", controller.getById)
-
-module.exports = router
+module.exports = router;

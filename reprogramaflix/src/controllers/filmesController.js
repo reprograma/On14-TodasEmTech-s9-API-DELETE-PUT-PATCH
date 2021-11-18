@@ -1,5 +1,4 @@
 //no controller vai ter a lógica
-
 //chamando o json de filmes
 const filmesJson = require("../models/filmes.json");
 
@@ -7,7 +6,7 @@ const filmesJson = require("../models/filmes.json");
 const getAll = (request, response) => {
   response.status(200).json([
     {
-      filmes: filmesJson
+      filmes: filmesJson,
     },
   ]);
 };
@@ -18,9 +17,32 @@ const getById = (request, response) => {
   let idEncontrado = filmesJson.find((filme) => filme.id == idRequest);
 
   response.status(200).send(idEncontrado);
+};
+
+const createMovie = (request, response) => {
+  let body = request.body
+
+  let novoFilme = {
+    id: (filmesJson.length)+1,
+    Title: body.Title,
+    Plot: body.Plot
+  }
+
+  filmesJson.push(novoFilme)
+
+  response.status(201).json(
+    [
+      {
+        "mensagem":"filme cadastrado com sucesso",
+        novoFilme
+      }
+    ]
+  )
+
 }
 
 module.exports = {
-    getAll,
-    getById
-}
+  getAll,
+  getById,
+  createMovie
+};
