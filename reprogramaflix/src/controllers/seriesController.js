@@ -5,23 +5,22 @@ const getAll = (req, res) => {
   res.status(200).send(seriesJson)
 }
 
-app.get("/series", (request, response) => {
+  const getById = (request, response) => {
   let idRequest = request.query.id;
-  let idEncontrado = seriesJson.find(serie => serie.id == idRequest);
-
+  let idEncontrado = seriesJson.find((serie) => serie.id == idRequest);
   response.status(200).send(idEncontrado);
-});
+};
 
 const createSerie = (request, response) => {
   let body = request.body
 
   let novaSerie = {
-    id: (SeriesJson.length)+1,
+    id: (seriesJson.length)+1,
     Title: body.Title,
     Plot: body.Plot
   }
 
-  SeriesJson.push(novaSerie)
+  seriesJson.push(novaSerie)
 
   response.status(201).json(
     [

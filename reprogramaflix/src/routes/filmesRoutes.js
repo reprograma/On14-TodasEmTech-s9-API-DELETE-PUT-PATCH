@@ -5,6 +5,10 @@ const router = express.Router();
 
 router.get("/catalogo", controller.getAll);
 router.get("/:id", controller.getById);
-router.post("/criar", controler.createMovie);
+router.post("/criar", controller.createMovie);
+
+
+
+router.patch("/update/:id", controller.updateTitle)
 
 module.exports = router;
