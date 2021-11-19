@@ -20,45 +20,41 @@ const getById = (request, response) => {
 };
 
 const createMovie = (request, response) => {
-  let body = request.body
+  let body = request.body;
 
   let novoFilme = {
-    id: (filmesJson.length)+1,
+    id: filmesJson.length + 1,
     Title: body.Title,
-    Plot: body.Plot
-  }
+    Plot: body.Plot,
+  };
 
-  filmesJson.push(novoFilme)
+  filmesJson.push(novoFilme);
 
-  response.status(201).json(
-    [
-      {
-        "mensagem":"filme cadastrado com sucesso",
-        novoFilme
-      }
-    ]
-  )
-}
-
-const updateTitle = (request, response)=>{
-  const idRequest = request.params.id
-  let novoTitulo = request.body.Title
-
-  FilmeFiltrado = filmesJson.find(filme => filme.id == idRequest)
-
-  FilmeFiltrado.Title = novoTitulo
-
-  response.status(200).json(
+  response.status(201).json([
     {
-      "mensagem": "Filme atualizado com sucesso",
-      FilmeFiltrado
-    }
-  )
-}
+      mensagem: "filme cadastrado com sucesso",
+      novoFilme,
+    },
+  ]);
+};
+
+const updateTitle = (request, response) => {
+  const idRequest = request.params.id;
+  let novoTitulo = request.body.Title;
+
+  FilmeFiltrado = filmesJson.find((filme) => filme.id == idRequest);
+
+  FilmeFiltrado.Title = novoTitulo;
+
+  response.status(200).json({
+    mensagem: "Filme atualizado com sucesso",
+    FilmeFiltrado,
+  });
+};
 
 module.exports = {
   getAll,
   getById,
   createMovie,
-  updateTitle
+  updateTitle,
 };
