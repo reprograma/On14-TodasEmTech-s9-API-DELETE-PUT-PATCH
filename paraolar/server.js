@@ -1,4 +1,4 @@
-const app = require("./src/app") //chamando o arquivo app
+const app = require("./src/app")
 
 //escutando a porta
 app.listen(7070, () => {

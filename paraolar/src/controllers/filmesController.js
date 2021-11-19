@@ -1,8 +1,5 @@
-//no controller vai ter a lógica
-//chamando o json de filmes
 const filmesJson = require("../models/filmes.json");
 
-//função getAll retorna todos os filmes
 const getAll = (request, response) => {
   response.status(200).json([
     {
@@ -11,7 +8,6 @@ const getAll = (request, response) => {
   ]);
 };
 
-//função getAll reetorna todos os filmes
 const getById = (request, response) => {
   let idRequest = request.params.id;
   let idEncontrado = filmesJson.find((filme) => filme.id == idRequest);
@@ -32,7 +28,7 @@ const createMovie = (request, response) => {
 
   response.status(201).json([
     {
-      mensagem: "filme cadastrado com sucesso",
+      mensagem: "filme cadastrado ",
       novoFilme,
     },
   ]);
