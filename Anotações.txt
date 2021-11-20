@@ -107,3 +107,11 @@ REFATORAR O SERVIDOR FEITO NAS AULA ANTERIOR, ATIVIDADE EXTRA
 tskill 15596 (o numero é o que listenning)
 fecha a porta*/
 
+
+BANCO DE DADOS
+
+npm i mongoose - instalar via git ferramente de modelagem para mongo
+facilita utilização do banco de dados / instalar dependencia
+
+npm i dotenv-safe - serve ocultar dados sensiveis de publico, vc tem que colocar / usuario senha
+.env no gitignore.

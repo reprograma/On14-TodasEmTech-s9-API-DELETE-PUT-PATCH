@@ -2,21 +2,19 @@ const controller = require("../controllers/filmesController")
 const express = require("express") 
 const router = express.Router() 
 
-router.get("/", controller.getAll) 
-router.get("/filtro", controller.getByGenre) 
+router.get("/", controller.getAll) // ok
+router.get("/filtro", controller.getByGenre) // ok
 
-router.post("/criar", controller.createMovie) 
+router.post("/criar", controller.createMovie) // ok
 
-router.get("/titulo", controller.getByTitle) 
+router.get("/titulo", controller.getByTitle) // ok
 
-router.delete("/deletar/:id", controller.deleteMovie) 
+router.delete("/deletar/:id", controller.deleteMovie) // ok
 
-router.get("/buscar/:id", controller.getById) 
+router.get("/buscar/:id", controller.getById) // ok
 
-router.patch("/updateTitle/:id", controller.updateTitle) 
-router.patch("/update/:id", controller.updateMoviesId) 
+router.patch("/update/:id", controller.updateMoviesId) // ok
 
-router.put("/update/:id", controller.updateMovie) 
 
 
 module.exports = router

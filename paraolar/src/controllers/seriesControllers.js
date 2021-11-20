@@ -1,156 +1,155 @@
-const seriesJson = require("../models/series.json")
+const SeriesSchema = require("../models/seriesSchema")
+const mongoose = require ("mongoose")
 
 //GET/series
-const getAll = (request, response) => {
-    response.status(200).json (
-        [{
-            "series": seriesJson
-        }]
-    )
+const getAll = async (req, res) => {
+    try {
+        const series = await SeriesSchema.find()
+        res.status(200).json(series) 
+    } catch (error) {
+        res.status(500).json({
+            mensagem: error.message
+        })
+    }
 }
-
 
 //GET/series{genero}
-const getGenre = (request, response) => {
-    const genreRequest = request.query.genero.toLocaleLowerCase()
-    
-    const seriesFilters = seriesJson.filter(serie =>
-        serie.genre.toString().toLocaleLowerCase().includes(genreRequest)
-    )
+const getGenre = async (req, res) => {
+    try{
+        const serieFound = await SeriesSchema.find({
+            genre: new RegExp(req.query.genre, "i")
+        })
 
-    response.status(200).send(seriesFilters)
+        if (serieFound){
+            res.status(200).json({
+                message: `Series de ${req.query.genre}:`,
+                serieFound
+            })
+        }
+    } catch (error) {
+        res.status(500).json ({
+            message: error.message
+        })
+    }
 }
+
+
 
 
 //GET/series{titulo}
-const getTitle = (request, response) => {
-    let titleRequest = request.query.titulo.toLocaleLowerCase()
-    let titleFound = seriesJson.filter(
-        series => series.title.toLocaleLowerCase().includes(titleRequest)
-    )
-
-    response.status(200).send(titleFound)
+const getTitle = async (req, res) => {
+    try{
+        const serieFound = await SeriesSchema.find({title: new RegExp (req.query.title, "i")})
+        
+        if(serieFound){
+            res.status(200).json({serieFound})  
+        }else {
+            res.status(404).json({
+              message: "Serie não cadastrada."
+            });
+        }
+        
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
 }
+
+
 
 
 //GET/series{id}
-const getById = (request, response) => {
-    let idRequest = request.params.id
-    let idFound = seriesJson.find(serie => serie.id == idRequest)
+const getById = async (req, res) => {
+    try {
+        const serieFound = await SeriesSchema.findById(req.params.id)
+        if (serieFound) {
+            res.status(200).send(serieFound)
+        }else{
+            res.status(404).json({
+              message: "Serie não localizada."
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            mensagem: error.message 
+        })
+    } 
 
-    if (idFound == undefined){
-        response.status(404).send({message:"Infelizmente não temos esta série." })
-    }
-
-    response.status(200).send(idFound)
 }
-
+    
 
 //POST/series/criar
-const createSerie = (request, response) => {
-    const body = request.body
-
-    let newSerie = {
-        id: (seriesJson.length) + 1,
-        title: body.title,
-        totalSeasons: body.totalSeasons,
-        genre: body.genre,
-        writes: body.writes,
-        poster: body.poster,
-        actors: body.actors,
-        ratings: body.ratings
-    }
-
-    seriesJson.push(newSerie)
-    response.status(200).json(
-        [{
-            "mensagem": "Série cadastrada com sucesso!",
-            newSerie
-        }]
-    )
-}
-
-
-//PUT/series/update/{id}
-const updateSeries = (request, response) => {
-    const idRequest = request.params.id
-    let serieRequest = request.body
-
-    let serieFound = seriesJson.findIndex(serie => serie.id == idRequest)
-    seriesJson.splice(serieFound, 1, serieRequest)
+const createSerie = async (req, res) => {
+        try{
+        const newSerie = new SeriesSchema({
+            _id: mongoose.Types.ObjectId(),
+            title: req.body.title,
+            totalSeasons: req.body.totalSeasons,
+            genre: req.body.genre,
+            writers: req.body.writers,
+            poster: req.body.poster,
+            actors: req.body.actors,
+            ratings: req.body.ratings,
+            })
     
-    response.status(200).json(
-        [{
-            "mensagem":"Série atualizada com sucesso!",
-            seriesJson
-        }]
-    )
-}
-
-
-//PATCH/series/updateTitle?/{id}
-const updateTitle = (request, response) => {
-    const idRequest = request.params.id
-    let bodyRequest = request.body.title
-
-    serieFilter = seriesJson.find(series => series.id == idRequest)
-    serieFilter.title = bodyRequest
-
-    response.status(200).json(
-        [{
-            "mensagem":"Título da série atualizado com sucesso!",
-            serieFilter
-        }]
-    )
-}
-
+        const savedSerie = await newSerie.save()
+            res.status(201).json([{
+                message: `Serie ${newSerie.title} criada com sucesso!`,
+                savedSerie
+             }])
+        }catch (error) {
+            res.status(500).json ({
+                message: error.message
+            })
+        }
+    }
 
 
 //PATCH/series/update/{id}
-const updateSeriesById = (request, response) => {
-    const idRequest = request.params.id
-    const bodyRequest = request.body
-
-    const serieFound = seriesJson.find(series => series.id == idRequest)
-
-    bodyRequest.id = idRequest
-
-    Object.keys (serieFound).forEach((chave) => {
-
-        if (bodyRequest[chave] == undefined){
-            serieFound[chave] == serieFound [chave]
-        }else{
-            serieFound[chave] = bodyRequest [chave]
+const updateSeriesById = async (req, res) => {
+    try {
+        const serieFound = await SeriesSchema.findById(req.params.id)
+        if(serieFound) {
+        serieFound.title = req.body.title || serieFound.title;
+        serieFound.totalSeasons = req.body.totalSeasons || serieFound.totalSeasons;
+        serieFound.genre = req.body.genre || serieFound.genre;
+        serieFound.writers = req.body.writers || serieFound.writers;
+        serieFound.poster = req.body.poster || serieFound.poster;
+        serieFound.actors = req.body.actors || serieFound.actors;
+        serieFound.ratings = req.body.ratings || serieFound.ratings;
         }
 
-    })
-
-    response.status(200).json(
-        [{
-            "mensagem":"Série atualizada com sucesso!",
-            serieFound
-        }]
-    )
+        const savedSerie = await serieFound.save()
+        res.status(200).json({
+            message: `Serie ${serieFound.title} atualizada com sucesso!`,
+            savedSerie
+        })
+        
+    } catch (error) {
+        res.status(500).json({
+            mensagem: error.message 
+        })
+    } 
 }
 
 
 
 //DELETE/series/deletar/{id}
-const deleteSerie = (request, response) => {
-    const idRequest = request.params.id
-    const serieFound = seriesJson.findIndex(series => series.id == idRequest)
-
-    seriesJson.splice(serieFound, 1)
-
-    response.status(200).json(
-        [{
-            "message":"Série deletada com sucesso!",
-            "deletado": idRequest,
-            seriesJson
-        }]
-    )
-
-}
+const deleteSerie = async (req, res) => {
+        try {
+            const serieFound = await SeriesSchema.findById(req.params.id)
+            await serieFound.delete()
+            res.status(200).json({
+                mensagem: `Serie ${serieFound.title} deletada com sucesso.`
+            })
+    
+        } catch (error) {
+            res.status(500).json({
+                mensagem: error.message 
+            })
+        } 
+    }
 
 
 module.exports ={
@@ -159,8 +158,6 @@ module.exports ={
     getTitle,
     getById,
     createSerie,
-    updateSeries,
-    updateTitle,
     updateSeriesById,
     deleteSerie
 }
