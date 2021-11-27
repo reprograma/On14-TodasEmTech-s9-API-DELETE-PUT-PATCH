@@ -1,17 +1,20 @@
-const controller = require("../controllers/filmesController")
+const controller = require("../controllers/filmesController") 
+const express = require("express") 
+const router = express.Router() 
 
-const express = require("express")
+router.get("/", controller.getAll) // ok
+router.get("/filtro", controller.getByGenre) // ok
 
-const router = express.Router()
+router.post("/criar", controller.createMovie) // ok
+
+router.get("/titulo", controller.getByTitle) // ok
+
+router.delete("/deletar/:id", controller.deleteMovie) // ok
+
+router.get("/buscar/:id", controller.getById) // ok
+
+router.patch("/update/:id", controller.updateMoviesId) // ok
 
 
-router.get("/catalogo" , controller.getAll)
-router.get("/:id" , controller.getById)
-
-router.post("/criar" , controller.createMovie)
-
-router.patch("/update/:id" , controller.updateMovie)
 
 module.exports = router
-
-
