@@ -1,0 +1,24 @@
+{
+  "name": "On14-TodasEmTech-s8-API-GET-POST",
+  "version": "1.0.0",
+  "description": "Turma Online 14 - Back-end | API: GET e POST",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliarebecca/On14-TodasEmTech-s8-API-GET-POST.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juliarebecca/On14-TodasEmTech-s8-API-GET-POST/issues"
+  },
+  "homepage": "https://github.com/juliarebecca/On14-TodasEmTech-s8-API-GET-POST#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
