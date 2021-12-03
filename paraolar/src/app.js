@@ -14,13 +14,13 @@ app.use(express.json()) // uso o bodyparser
  //Criar a rota raiz de serie
  app.use("/filmes", filmesRoutes);
  app.use("/series", seriesRoutes);
- app.use("/assistir", assistirRoutes)
+ app.use("/assistir", assistirRoutes);
  
 
 //app.use("/series")
 //app.use("/tvshows")
 //app.use("/new")
-//app.use("/minhas")
+//app.use("/minhas")///
 
 
 module.exports = app //exportando para usar no server .jsrortas raizes
