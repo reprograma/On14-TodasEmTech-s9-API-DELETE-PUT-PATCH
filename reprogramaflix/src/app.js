@@ -1,5 +1,6 @@
 const express = require("express"); //chamando
 const cors = require("cors"); //chamando
+
 const filmesRoutes = require("./routes/filmesRoutes"); //chamando
 const seriesRoutes = require("./routes/seriesRoutes");
 

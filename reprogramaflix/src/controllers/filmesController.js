@@ -23,7 +23,7 @@ const createMovie = (request, response) => {
   let body = request.body;
 
   let novoFilme = {
-    id: filmesJson.length + 1,
+    id: (filmesJson.length) + 1,
     Title: body.Title,
     Plot: body.Plot,
   };
@@ -52,9 +52,29 @@ const updateTitle = (request, response) => {
   });
 };
 
+//PUT
+const updateMovie = (request, response) => {
+  const idRequest = request.params.id;
+  let filmeRequest = request.body;
+
+  let IndexEncontrado = filmesJson.findIndex((filme) => filme.id == idRequest);
+
+  filmesJson.splice(IndexEncontrado, 1, filmeRequest)
+
+  response.status(200).json(
+    [
+      {
+        "mensagem":"filme atualizado com sucesso",
+        filmesJson
+      }
+    ]
+  )
+};
+
 module.exports = {
   getAll,
   getById,
   createMovie,
   updateTitle,
+  updateMovie
 };
